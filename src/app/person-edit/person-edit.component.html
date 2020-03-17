@@ -1,0 +1,40 @@
+<form [formGroup]="personForm">
+  <h1>Person</h1>
+  <label>ID <input type="text" formControlName="id"></label>
+  <label>Name <input type="text" formControlName="name"></label>
+  <div formGroupName="account">
+    <h3>Account</h3>
+    <label>ID <input type="text" formControlName="id"></label>
+    <label>Username <input type="text" formControlName="username"></label>
+    <label>Password <input type="password" formControlName="password"></label>
+    <label>Expiry <input type="date" formControlName="expiry"></label>
+    <label>Login Failures <input type="number" formControlName="loginFailure"></label>
+  </div>
+  <div formArrayName="addresses">
+    <h3>Addresses</h3>
+    <button (click)="addAddress()">Add Address</button>
+
+    <div *ngFor="let address of addresses.controls; let i=index">
+      <div [formGroupName]="i">
+        <label>ID <input type="text" formControlName="id"></label>
+        <label>Type
+          <select formControlName="type">
+            <option value="HOME">Home Address</option>
+            <option value="MAIL">Mailing Address</option>
+            <option value="BILLING">Billing Address</option>
+          </select>
+        </label>
+        <label>Zip <input type="number" formControlName="zip"></label>
+        <label>City <input type="text" formControlName="city"></label>
+        <label>Country <input type="text" formControlName="country"></label>
+        <label>Line 1 <input type="text" formControlName="line1"></label>
+        <label>Line 2 <input type="text" formControlName="line2"></label>
+        <button (click)="removeAddress(i)">Remove</button>
+      </div>
+    </div>
+  </div>
+</form>
+<hr>
+<pre>
+  {{ this.personForm.value | json }}
+</pre>
