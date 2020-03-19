@@ -24,8 +24,30 @@
             <option value="BILLING">Billing Address</option>
           </select>
         </label>
-        <label>Zip <input type="number" formControlName="zip"></label>
-        <label>City <input type="text" formControlName="city"></label>
+        <label>
+          Zip
+          <p-autoComplete formControlName="zip"
+                          [suggestions]="zipResults$ | async"
+                          (completeMethod)="searchByZip($event)"
+                          (onSelect)="setSelected(address, $event)"
+                          dataKey="code">
+            <ng-template let-zip pTemplate="item">
+              <span>{{ zip.code }} - {{ zip.city }}</span>
+            </ng-template>
+          </p-autoComplete>
+        </label>
+        <label>
+          City
+          <p-autoComplete formControlName="city"
+                          [suggestions]="zipResults$ | async"
+                          (completeMethod)="searchByCity($event)"
+                          (onSelect)="setSelected(address, $event)"
+                          dataKey="code">
+            <ng-template let-zip pTemplate="item">
+              <span>{{ zip.code }} - {{ zip.city }}</span>
+            </ng-template>
+          </p-autoComplete>
+        </label>
         <label>Country <input type="text" formControlName="country"></label>
         <label>Line 1 <input type="text" formControlName="line1"></label>
         <label>Line 2 <input type="text" formControlName="line2"></label>

@@ -24,7 +24,7 @@ export class PersonService {
         {
           id: 'cde',
           type: AddressType.HOME,
-          zip: 8230,
+          zip: '8230',
           city: 'Balatonfüred',
           country: 'Hungary',
           line1: 'Fo utca 1',
@@ -33,7 +33,7 @@ export class PersonService {
         {
           id: 'efg',
           type: AddressType.MAIL,
-          zip: 8230,
+          zip: '8230',
           city: 'Balatonfüred',
           country: 'Hungary',
           line1: 'Pf. 123',

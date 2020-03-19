@@ -3,7 +3,7 @@ import { AddressType } from './address-type';
 export class Address {
   id: string;
   type: AddressType;
-  zip: number;
+  zip: string;
   city: string;
   country: string;
   line1: string;

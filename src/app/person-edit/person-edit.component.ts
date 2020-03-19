@@ -3,6 +3,9 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import { PersonService } from '../person.service';
 import { Address } from '../model/address';
+import { ZipService } from '../zip.service';
+import { Observable } from 'rxjs';
+import { Zip } from '../model/zip';
 
 @Component({
   selector: 'app-person-edit',
@@ -12,13 +15,15 @@ import { Address } from '../model/address';
 export class PersonEditComponent implements OnInit {
 
   personForm: FormGroup = this.initPersonForm();
+  zipResults$: Observable<Array<Zip>>;
 
   get addresses() {
     return this.personForm.get('addresses') as FormArray;
   }
 
   constructor(
-    private personService: PersonService
+    private personService: PersonService,
+    private zipService: ZipService
   ) {
   }
 
@@ -67,7 +72,18 @@ export class PersonEditComponent implements OnInit {
     this.addresses.removeAt(i);
   }
 
-  submit() {
-    console.log(this.personForm.value);
+  searchByZip({ query }) {
+    this.zipResults$ = this.zipService.findByCode(query);
+  }
+
+  searchByCity({ query }) {
+    this.zipResults$ = this.zipService.findByCity(query);
+  }
+
+  setSelected(address: FormGroup, zip: Zip) {
+    address.patchValue({
+      zip: zip.code,
+      city: zip.city
+    });
   }
 }
